@@ -102,7 +102,7 @@ def read_data(data_directory):
   ratings_df = pd.read_csv(
       os.path.join(data_directory, RATINGS_FILE_NAME),
       sep="::",
-      names=RATINGS_DATA_COLUMNS)
+      names=RATINGS_DATA_COLUMNS, engine='python')
   ratings_df["Timestamp"] = ratings_df["Timestamp"].apply(int)
   movies_df = pd.read_csv(
       os.path.join(data_directory, MOVIES_FILE_NAME),
