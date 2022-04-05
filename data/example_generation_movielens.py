@@ -101,7 +101,7 @@ def read_data(data_directory):
   """Read movielens ratings.dat and movies.dat file into dataframe."""
   ratings_df = pd.read_csv(
       os.path.join(data_directory, RATINGS_FILE_NAME),
-      sep="::",
+      sep="::", engine='python',
       names=RATINGS_DATA_COLUMNS)
   ratings_df["Timestamp"] = ratings_df["Timestamp"].apply(int)
   movies_df = pd.read_csv(
