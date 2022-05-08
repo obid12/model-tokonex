@@ -71,7 +71,7 @@ class ContextEncoder(tf.keras.layers.Layer):
           tf.keras.layers.Dense(
               units=ratio * self._context_embedding_dim,
               name='hidden_layer{}'.format(i),
-              activation=tf.nn.sigmoid))
+              activation=tf.nn.relu))
 
   def call(self, input_context):
     """Encode context sequence.
