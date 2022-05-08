@@ -58,8 +58,8 @@ class ContextEncoder(tf.keras.layers.Layer):
                 filters=self._context_embedding_dim * ratio,
                 kernel_size=conv_kernel_size,
                 strides=conv_kernel_size,
-                padding='valid',
-                activation='relu'))
+                padding='same',
+                activation='sigmoid'))
     elif self._encoder_type == 'rnn':
       assert self._params['lstm_num_units']
       lstm_num_units = self._params['lstm_num_units']
@@ -71,7 +71,7 @@ class ContextEncoder(tf.keras.layers.Layer):
           tf.keras.layers.Dense(
               units=ratio * self._context_embedding_dim,
               name='hidden_layer{}'.format(i),
-              activation=tf.nn.relu))
+              activation=tf.nn.sigmoid))
 
   def call(self, input_context):
     """Encode context sequence.
