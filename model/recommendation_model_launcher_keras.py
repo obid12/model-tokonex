@@ -166,7 +166,7 @@ def compile_model(model, params, learning_rate, gradient_clip_norm):
       optimizer=_get_optimizer(
           learning_rate=learning_rate, gradient_clip_norm=gradient_clip_norm),
       loss=losses.GlobalSoftmax(),
-      metrics=['accuracy',_get_metrics(params['eval_top_k'])])
+      metrics=['accuracy', metrics.RootMeanSquaredError(), 'mean_absolute_error'])
 
 
 def build_keras_model(params, learning_rate, gradient_clip_norm):
