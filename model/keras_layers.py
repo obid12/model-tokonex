@@ -58,7 +58,7 @@ class ContextEncoder(tf.keras.layers.Layer):
                 filters=self._context_embedding_dim * ratio,
                 kernel_size=conv_kernel_size,
                 strides=conv_kernel_size,
-                padding='same',
+                padding='valid',
                 activation='relu'))
     elif self._encoder_type == 'rnn':
       assert self._params['lstm_num_units']
