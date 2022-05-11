@@ -28,11 +28,9 @@ def safe_div(x, y):
 
 class ContextEncoder(tf.keras.layers.Layer):
   """Layer to encode context sequence.
-
   This encoder layer supports three types: 1) bow: bag of words style averaging
   sequence embeddings. 2) cnn: use convolutional neural network to encode
   sequence. 3) rnn: use recurrent neural network to encode sequence.
-
   This encoder should be initialized with a predefined embedding layer, encoder
   type and necessary parameters corresponding to the encoder type.
   """
@@ -59,7 +57,7 @@ class ContextEncoder(tf.keras.layers.Layer):
                 kernel_size=conv_kernel_size,
                 strides=conv_kernel_size,
                 padding='same',
-                activation='sigmoid'))
+                activation='relu'))
     elif self._encoder_type == 'rnn':
       assert self._params['lstm_num_units']
       lstm_num_units = self._params['lstm_num_units']
@@ -71,19 +69,16 @@ class ContextEncoder(tf.keras.layers.Layer):
           tf.keras.layers.Dense(
               units=ratio * self._context_embedding_dim,
               name='hidden_layer{}'.format(i),
-              activation=tf.nn.sigmoid))
+              activation=tf.nn.relu))
 
   def call(self, input_context):
     """Encode context sequence.
-
     This function performs 3 steps 1) embed sequence ids 2) pass embedded
     sequence through bow/cnn/rnn neural network 3) apply full-connected hidden
     layers.
-
     Args:
       input_context: tensor with context sequence ids, with dimension
         [batch_size, sequence_length]
-
     Returns:
       context_embedding: encoded context vector, with dimension
       [batch_size, final_hidden_layer_dim].
@@ -118,7 +113,6 @@ class ContextEncoder(tf.keras.layers.Layer):
 
 class DotProductSimilarity(tf.keras.layers.Layer):
   """Layer to comput dotproduct similarities for context/label embeddings.
-
     The top_k is an integer to represent top_k ids to compute among label ids.
     if top_k is None, top_k computation will be ignored.
   """
