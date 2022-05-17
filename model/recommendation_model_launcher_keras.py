@@ -165,7 +165,7 @@ def compile_model(model, params, learning_rate, gradient_clip_norm):
   model.compile(
       optimizer=_get_optimizer(
           learning_rate=learning_rate, gradient_clip_norm=gradient_clip_norm),
-      loss='softmax',
+      loss='mean_squared_error',
       metrics=['accuracy', tf.keras.metrics.MeanSquaredError(),'mean_absolute_error'])
 
 
